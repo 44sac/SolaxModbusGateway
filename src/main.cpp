@@ -15,7 +15,7 @@ _________________________________________________________________
 #include "baseconfig.h"
 #include "mqtt.h"
 #include "MyWebServer.h"
-
+#define RS485_EN_PIN 17 // 17 /RE   Für LilyGO RS485
 AsyncWebServer server(80);
 DNSServer dns;
 
@@ -43,7 +43,9 @@ void myMQTTCallBack(char* topic, byte* payload, unsigned int length) {
 
 void setup() {
   Serial.begin(115200);
-
+  // Für LillyGO
+  pinMode(RS485_EN_PIN, OUTPUT);
+  digitalWrite(RS485_EN_PIN, HIGH);
   dbg.println("Start of Modbus-RTU MQTT Gateway"); 
   dbg.println("Starting BaseConfig");
   Config = new BaseConfig();
